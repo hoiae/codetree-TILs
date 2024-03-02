@@ -75,8 +75,6 @@ public class Main {
 				trap[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		// TODO 삭제
-//		print(trap);
 
 		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -97,7 +95,6 @@ public class Main {
 		}
 
 		lifes = originLifes.clone();
-//		System.out.println(Arrays.toString(lifes));
 
 		// 기사의 이동시 시작됌
 		for (int i = 0; i < Q; i++) {
@@ -105,8 +102,6 @@ public class Main {
 			int index = Integer.parseInt(st.nextToken());
 			int dir = Integer.parseInt(st.nextToken());
 			move(index, dir);
-//			System.out.println("map");
-//			print(map);
 
 		}
 		int ans = 0;
@@ -135,9 +130,6 @@ public class Main {
 	}
 
 	private static void move(int index, int dir) {
-//		System.out.println("================================================");
-//		System.out.println("startIndex =" + index + " startDir=" + dir);
-//		System.out.println(Arrays.toString(infos));
 		int[] damages = new int[N + 1];
 		int[][] tempMap = new int[L + 1][L + 1];
 		Info[] tempInfos = infos.clone();
@@ -164,8 +156,6 @@ public class Main {
 			}
 		}
 		// 인덱스 기록
-//		System.out.println("begin");
-//		print(tempMap);
 		for (int i = 0; i <= target.h - 1; i++) {
 			for (int j = 0; j <= target.w - 1; j++) {
 				tempMap[target.r + i][target.c + j] = 0;
@@ -173,26 +163,19 @@ public class Main {
 			}
 		}
 
-//		System.out.println("시작 기사 0만들기");
-//		print(tempMap);
 
 		while (!q.isEmpty()) {
-//			System.out.println(q);
 			Point now = q.poll();
 			// 해당자리가 1<=자리<=N인지 파악함.
 			if (now.r < 1 || now.c < 1 || now.r > L || now.c > L) {
-//				System.out.println("구간을 벗어나 종료");
 				return;
 			}
 
-			// TODO 추가
 
 			// trap에서 0인 경우 temp에 기사의 index만 반영하고 종료
 			// 1인 경우 해당 기사의 damages++;후 temp에 기사 index반영 -> index가 동일한 경우 damege반영 x
 			// 2인 경우 move메서드 종료
 			if (trap[now.r][now.c] == 2) {
-//				System.out.println("벽을 만나 종료");
-//				System.out.println(now.index);
 				return;
 			} else if (trap[now.r][now.c] == 0) {
 				tempMap[now.r][now.c] = now.index;
@@ -208,9 +191,6 @@ public class Main {
 				visited[map[now.r][now.c]] = true;
 				target = infos[map[now.r][now.c]];
 				tempInfos[map[now.r][now.c]] = new Info(target.r + dx[dir], target.c + dy[dir], target.h, target.w);
-//				System.out.println(map[now.r][now.c]);
-//				System.out.println(Arrays.toString(infos));
-//				System.out.println(Arrays.toString(tempInfos));
 				for (int i = 0; i <= target.h - 1; i++) {
 					for (int j = 0; j <= target.w - 1; j++) {
 
@@ -221,12 +201,9 @@ public class Main {
 						}
 					}
 				}
-//				System.out.println("다른 기사를 마주한 경우");
-//				print(tempMap);
 			}
 		}
 
-//		System.out.println("결과");
 		// 위의 while문을 탈출한경우 -> 문제가 없었으므로, map과 life를 갱신한다.
 		Set<Integer> dead = new HashSet<>();
 		for (int i = 1; i <= N; i++) {
@@ -236,7 +213,6 @@ public class Main {
 			}
 		}
 		// dead에 포함된 기사의 경우 tempMap -> map에 반영하는 과정에서 0으로 처리한다.
-//		System.out.println("dead=" + dead);
 		for (int i = 1; i <= L; i++) {
 			for (int j = 1; j <= L; j++) {
 				map[i][j] = tempMap[i][j];
@@ -248,7 +224,6 @@ public class Main {
 
 		infos = tempInfos;
 
-//		print(tempMap);
 
 	}
 
