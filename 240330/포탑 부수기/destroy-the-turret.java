@@ -65,6 +65,12 @@ public class Main {
 	}
 	public static void main(String[] args) throws IOException {
 		init();
+		// TODO 초기화 테스트
+//		System.out.println("towers===");
+//		for (int i = 0; i < towers.size(); i++) {
+//			System.out.println(towers.get(i));
+//		}
+//		printMap();
 		int ans = solve();
 		System.out.println(ans);
 	}
@@ -88,18 +94,27 @@ public class Main {
 			towers.get(0).power += N + M;
 			/* 공격 */
 			attack();
-
+//			System.out.println(i+"공격");
+//			for(Tower tower : towers) {
+//				System.out.println(tower);
+//			}
 			/* 결과 반영 */
 			afterAttack(i);
-
+//			System.out.println(i+"공격 이후");
+//			for(Tower tower : towers) {
+//				System.out.println(tower);
+//			}
+//			printMap();
 			/* towers 타워의 개수가 1개면 종료 */
+
+			
 			if(towers.size()==1) {
 				return towers.get(0).power;
 			}
 		}
 		
 		Collections.sort(towers, (o1,o2)-> -1*(o1.power - o2.power));
-		// System.out.println(towers);
+//		System.out.println(towers);
 		return towers.get(0).power;
 	}
 
@@ -157,13 +172,14 @@ public class Main {
 	 */
 	private static void initIsRelated() {
 		isRelated = new HashSet<>();// 한번에 한번씩 초기화해야함.
-
+//		isRelated.add(towers.get(0).index);
+//		isRelated.add(towers.get(towers.size()).index);
 	}
 
 	private static void attack() {
 		initIsRelated();// 공격 관계자들 표기
 		if (!lazerAttack()) {
-			initIsRelated();// 관련된 항목을 최신화함
+			//initIsRelated();// 관련된 항목을 최신화함
 			boomAttack();
 		}
 	}
@@ -203,8 +219,9 @@ public class Main {
 			if(nx == sx && ny == sy) {
 				continue;
 			}
-			
+			if(map[nx][ny] == 0) continue;
 			//나머지는 관련이 있다.
+//			System.out.println("붐바스틱:"+nx+" "+ny);
 			isRelated.add(indexMap[nx][ny]);
 		}
 		
@@ -256,7 +273,10 @@ public class Main {
 				// 목표지점에 도달할 수 있다.
 				if (nx == tx && ny == ty) {
 					//관계자 표기
+//					System.out.println("history");
 					for(Point point : now.history) {
+//						System.out.println(point.x +" "+point.y);
+//						System.out.println("index="+indexMap[point.x][point.y]);
 						isRelated.add(indexMap[point.x][point.y]);
 					}
 					
@@ -272,6 +292,7 @@ public class Main {
 				visited[nx][ny] = true;
 			}
 		}
+		
 		return false;
 	}
 
