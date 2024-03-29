@@ -191,11 +191,11 @@ public class Main {
 			
 			// 구간을 벗어난 경우
 			if (nx == -1)
-				nx = N;
+				nx = N - 1;
 			if (nx == N)
 				nx = 0;
 			if (ny == -1)
-				ny = M;
+				ny = M - 1;
 			if (ny == M)
 				ny = 0;
 			
