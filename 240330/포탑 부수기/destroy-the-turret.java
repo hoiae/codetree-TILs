@@ -99,7 +99,7 @@ public class Main {
 		}
 		
 		Collections.sort(towers, (o1,o2)-> -1*(o1.power - o2.power));
-		System.out.println(towers);
+		// System.out.println(towers);
 		return towers.get(0).power;
 	}
 
