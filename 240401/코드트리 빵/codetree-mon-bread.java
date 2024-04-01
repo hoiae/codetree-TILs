@@ -85,17 +85,24 @@ public class Main {
 		int index = 0;
 		while(true) {
 //			System.out.println(" **********index= "+ index+"************=");
+//			System.out.println("onBoard=");
+//			System.out.println(onBoard);
 			// 1.moving
 			moving();
+//			System.out.println("movig onBoard=");
+//			System.out.println(onBoard);
 			//TODO
 //				movieTest();
 			// 2.aftermoving
 			afterMoving();
+//			System.out.println("after movig onBoard=");
+//			System.out.println(onBoard);
 			//TODO
 //				afeterMovingTest();
 			// 3.onboarding
 			int order = onBoarding(index++);
-			
+//			System.out.println("order onBoard=");
+//			System.out.println(onBoard);
 //			printMap();
 //			System.out.println("order = "+order);
 			if(order != 0) {
@@ -197,14 +204,21 @@ public class Main {
 	 */
 	private static void moving() {
 		arrive = new HashSet<>();
-		for (int i = 0; i < onBoard.size(); i++) {
+		int size = onBoard.size();
+		for (int i = size - 1; i >= 0 ; i--) {
+//			System.out.println("movig onBoard=");
+//			System.out.println(onBoard);
+
 			People p = onBoard.get(i);
 			Point start = p.point;
 			Point target = cons[p.index];
 			Point nextPosition = findNextPosition(start, target);
+//			System.out.println("next position =");
+//			System.out.println(nextPosition);
 			// TODO메서드 확인용
-			if (nextPosition == null) {
-				System.out.println("nulll?");
+			if (nextPosition.x == N) {
+				onBoard.remove(i);
+				continue;
 			}
 
 			// 위치 정보 갱신
@@ -249,6 +263,8 @@ public class Main {
 				if (nx < 0 || ny < 0 || nx >= N || ny >= N || visited[nx][ny] || map[nx][ny] == -1) {
 					continue;
 				}
+				
+//				System.out.println("nx=" + nx +" ny= " + ny);
 				// 방문처리
 				visited[nx][ny] = true;
 				// 큐에 넣어야함.
