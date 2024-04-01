@@ -97,6 +97,10 @@ public class Main {
 			afterMoving();
 //			System.out.println("after movig onBoard=");
 //			System.out.println(onBoard);
+			if(index >= M && onBoard.size() == 0) {
+				System.out.println(index + 1);
+				return;
+			}
 			//TODO
 //				afeterMovingTest();
 			// 3.onboarding
