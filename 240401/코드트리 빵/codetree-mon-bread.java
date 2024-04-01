@@ -154,8 +154,11 @@ public class Main {
 //				System.out.println(base);
 				Point info = findNextPosition(base, con);
 //				System.out.println("   findNextPosition   =====");
-
-				pq.add(new Point(base.x, base.y, info.dist));
+//				System.out.println(base);
+//				System.out.println(info);
+				pq.add(new Point(base.x, base.y, 
+						info.dist));
+				
 			}
 			Point target = pq.poll();
 //			System.out.println("order="+order+ " 선택된 base="+target);
@@ -255,8 +258,8 @@ public class Main {
 			}
 		}
 		
-
-		return null;
+		//도달할 수 없는 경우도 고려해야함
+		return new Point(N,N,N*N);
 	}
 
 	private static void init() throws IOException {
