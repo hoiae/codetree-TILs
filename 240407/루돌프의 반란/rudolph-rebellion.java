@@ -183,6 +183,7 @@ public class Main {
 //			printMap();
 			assignScore();
 //			System.out.println("score= " + Arrays.toString(score));
+//			printMap();
 
 		}
 
@@ -210,17 +211,19 @@ public class Main {
 		for (int i = 0; i < N; i++) {
 			temp[i] = map[i].clone();
 		}
-
+		
 		temp[rudolf.x][rudolf.y] = -1;
-
-		System.out.println("====    map    ====");
+		System.out.println("round=" + (round + 1));
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				System.out.print(temp[i][j] + " ");
 			}
 			System.out.println();
 		}
-
+		
+		System.out.println("    score=");
+		printAnswer();
+	
 	}
 
 	/*
@@ -229,6 +232,7 @@ public class Main {
 	 * 수 없으면 움직이지 않는다. 산타는 4방향(상,하,우,좌 우선순위!)으로 움직일 수 있다.
 	 */
 	private static void moveSanta() {
+		Collections.sort(santas);
 		dead = new HashSet<>();
 		int[] dx = { -1, 0, 1, 0 };
 		int[] dy = { 0, 1, 0, -1 };
