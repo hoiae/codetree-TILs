@@ -143,7 +143,7 @@ public class Main {
 		rudolf = new Point(x, y);
 
 		map = new int[N][N];
-		score = new int[N + 1]; // 인덱스는 1부터 시작한다.
+		score = new int[P + 1]; // 인덱스는 1부터 시작한다.
 		santas = new ArrayList<>();
 		dead = new TreeSet<>(); // 라운드 마다 초기화해야한다.
 
