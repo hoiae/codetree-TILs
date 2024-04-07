@@ -175,6 +175,7 @@ public class Main {
 
 			// 3.생존자 점수 부여 -> 생존자 없으면 종료!!
 			if (santas.size() == 0) {
+				printAnswer();
 				return;
 			}
 
@@ -186,6 +187,10 @@ public class Main {
 		}
 
 		// TODO score출력한다. 1 ~ P까지
+		printAnswer();
+	}
+
+	private static void printAnswer() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i <= P; i++) {
 			sb.append(score[i] + " ");
