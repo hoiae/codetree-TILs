@@ -22,6 +22,7 @@ public class Main {
 	static int N,M,K;// 격자크기, 플레이어 수, 라운드수
 	static int[] dx = {-1,0,1,0};
 	static int[] dy = {0,1,0,-1};
+	static int round;
 	static class Player implements Comparable<Player>{
 		int index; //인덱스
 		int x;
@@ -62,6 +63,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		init();
 		for(int i = 1; i<= K; i++) {
+			round = i;
 //			System.out.println(" round=" + i+ i+ i+ i+ i+ i+ i);
 			solve();	
 //			System.out.println(Arrays.toString(scores));
@@ -117,18 +119,6 @@ public class Main {
 					
 				}
 				
-				
-//				int gun = 0;
-//				if(!gunMap[nx][ny].isEmpty()) {
-//					gun = gunMap[nx][ny].poll();
-//				}
-//				
-//				if(now.gun < gun) {
-//					if(now.gun != 0) {//총을 들고 있지 않은 경우
-//						gunMap[nx][ny].offer(now.gun);
-//					}
-//					now.gun = gun;
-//				}
 			//이동하는 곳에 플레이어가 있는 경우
 			}else {
 				
@@ -172,10 +162,12 @@ public class Main {
 				}
 				//이긴사람은 현위치의 총중 가장 센총을 획득하고, 다른 총은 내려놓는다.
 				if(!gunMap[nx][ny].isEmpty()) {
-					if(winner.gun != 0 && winner.gun < gunMap[nx][ny].peek()) {
+					if(winner.gun < gunMap[nx][ny].peek()) {
 						int winnerGun = winner.gun;
 						winner.gun = gunMap[nx][ny].poll();
-						gunMap[nx][ny].add(winnerGun);
+						if(winnerGun != 0) {
+							gunMap[nx][ny].add(winnerGun);
+						}
 					}
 				}
 				//위치정보 갱신
@@ -184,7 +176,7 @@ public class Main {
 				pMap[nx][ny] = winner.index;
 			}	
 			
-//			System.out.println(i+"번 플레이어 이동");
+//			System.out.println("round= "+round+" "+i+"번 플레이어 이동 후");
 //			printMap();
 		}
 		
