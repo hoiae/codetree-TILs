@@ -1,5 +1,3 @@
-package 왕실기사의대결;
-
 import java.io.*;
 import java.util.*;
 
