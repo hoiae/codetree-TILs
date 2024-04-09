@@ -97,12 +97,12 @@ public class Main {
 		//명령을 받은 기사의 영역을 먼저 q에 넣는다.
 		for(int i = 0; i < L; i++) {
 			for(int j = 0; j < L; j++) {
-				if(posMap[i][j] == index) {
+				if(tMap[i][j] == index) {
 					int nx = i + dx[dir];
 					int ny = j + dy[dir];
 					//움직일 수 없는 경우, 벽 or 구간 밖
 					if(!isOnRange(nx,ny) || map[nx][ny] == 2) {
-						return;
+						break;
 					}
 					q.add(new Info(index, nx, ny));
 					tMap[i][j] = 0;
@@ -110,30 +110,43 @@ public class Main {
 			}
 		}
 		
-
+		
+		Set<Integer> visit = new HashSet<>();
+		visit.add(index);
 		
 		while(!q.isEmpty()) {
 			Info now = q.poll();
 			int nIndex = tMap[now.x][now.y];
+			
+			if(nIndex != 0 && !visit.contains(nIndex)) {
+				visit.add(nIndex);
+				
+				for(int i = 0; i < L; i++) {
+					for(int j = 0; j < L; j++) {
+						if(tMap[i][j] == nIndex) {
+								tMap[i][j] = 0;
+							//다음으로 이동한 구간 - 장애물 // 벽이나 맵을 벗어난 경우
+							int nx = i + dx[dir];
+							int ny = j + dy[dir];
+							
+							//이동할 수없는 경우, 맵을 벗어나거나 벽
+							if(!isOnRange(nx,ny) || map[nx][ny] == 2) {
+								return;
+							}
+
+							//장애물을 만난 경우
+							if(map[nx][ny] == 1) {
+								tdam[nIndex]++;
+							}
+							q.add(new Info(nIndex, nx, ny));
+						}
+					}
+				}
+			}
+			
 			//이동 좌표 반영
 			tMap[now.x][now.y] = now.index;
-			//다른 기사의 영역이므로 밀어야한다.
-			if(nIndex != 0) {
-				//다음으로 이동한 구간 - 장애물 // 벽이나 맵을 벗어난 경우
-				int nx = now.x + dx[dir];
-				int ny = now.y + dy[dir];
-				//이동할 수없는 경우, 맵을 벗어나거나 벽
-				if(!isOnRange(nx,ny) || map[nx][ny] == 2) {
-					continue;
-				}
-				
-
-				//장애물을 만난 경우
-				if(map[nx][ny] == 1) {
-					tdam[nIndex]++;
-				}
-				q.add(new Info(nIndex, nx, ny));
-			}
+		
 			
 		}
 		
@@ -148,9 +161,10 @@ public class Main {
 			}
 		}
 		
+		
 		for(int i = 0; i < L; i++) {
 			for(int j = 0; j < L; j++) {
-				if(remove.contains(map[i][j])) {
+				if(remove.contains(tMap[i][j])) {
 					tMap[i][j] = 0;
 				}
 			}
