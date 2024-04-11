@@ -163,6 +163,7 @@ public class Main {
 			for(int j = 0; j< N; j++) {
 				if(visited[i][j]) continue;
 				int cnt = grouping(index, i,j);
+				if(cnt == 0) continue;
 				groups.add(new Group(index++,cnt,i,j));
 			}
 		}
@@ -171,7 +172,6 @@ public class Main {
 			for(int j = i + 1; j < groups.size(); j++) {
 				Group a = groups.get(i);
 				Group b = groups.get(j);
-			
 
 				//인접한 면 찾기
 				int contactingCnt = countTouching(a,b);
