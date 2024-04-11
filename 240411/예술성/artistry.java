@@ -26,6 +26,7 @@ public class Main {
 	static int N;
 	static int[][] map;
 	static int[][] pMap; //점수계산할때마다갱신 해야함.
+	static boolean[][] cvisited;
 	static boolean[][] visited;//점수계산할때마다 갱신
 	static int score;
 	static List<Group> groups; //점수 계산할때마다 갱신해야함.
@@ -163,7 +164,6 @@ public class Main {
 			for(int j = 0; j< N; j++) {
 				if(visited[i][j]) continue;
 				int cnt = grouping(index, i,j);
-				if(cnt == 0) continue;
 				groups.add(new Group(index++,cnt,i,j));
 			}
 		}
@@ -194,7 +194,11 @@ public class Main {
 	}
 	
 	private static int countTouching(Group a, Group b) {
-		boolean cvisited[][] = new boolean[N][N];
+//		boolean cvisited[][] = new boolean[N][N];
+		for(int i = 0; i < N; i++) {
+			Arrays.fill(cvisited[i],false);
+		}
+		
 		int sx = a.x;
 		int sy = a.y;
 		int id = a.id;
@@ -286,6 +290,7 @@ public class Main {
 			}
 		}
 		groups = new ArrayList<>();
+		cvisited = new boolean[N][N];
 	}
 	
 	
