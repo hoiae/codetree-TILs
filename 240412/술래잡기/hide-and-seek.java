@@ -172,9 +172,10 @@ private static void moveTagger() {
     	}
   
     }
-    
-  	score += (round * cnt);
-    
+//    System.out.println("round="+round+", cnt="+cnt+", addScore="+(round * cnt));
+    score += (round * cnt);
+//    System.out.println("score="+score);
+//    printMap();
     /*
      *??술래가 방향전환하는 순간은 1 *2번, 2*2번, 3 * 2번 회전방향은 오른쪽
      * ??만약 (0,0)에 도착한 순간.방향은 아래를 바라보게한다.이후 회전방향은 왼쪽
@@ -228,7 +229,7 @@ private static void runnerMove() {
                     //구간을 벗어나는 경우    
                     }else {
                         //반대방향으로 돌린다.
-                        dirs[runnerIndex] = dirs[runnerIndex] + 2 % 4;
+                        dirs[runnerIndex] = (dirs[runnerIndex] + 2) % 4;
                         dir = dirs[runnerIndex];
                         //술래가 존재하지 않으면 한칸 이동한다.
                         nx = i + dx[dir];
@@ -272,6 +273,7 @@ private static void printTaggerPosition() {
         System.out.println();
     }
     
+    System.out.println("tagger dir=" + dirs[0]);
 }
 private static boolean isOnRange(int x, int y) {
     if(x < 0 || y < 0 || x >= N || y >= N) {
@@ -324,7 +326,7 @@ private static void init() throws IOException {
     K = Integer.parseInt(st.nextToken()); //진행 라운드 수
 
     runnerMap = new LinkedList[N][N];
-    dirs = new int[N + 1];
+    dirs = new int[M + 1];
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
             runnerMap[i][j] = new LinkedList<>();
