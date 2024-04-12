@@ -155,8 +155,8 @@ private static void moveTagger() {
     int ny = tagger.y;
     //자기자리 포함해서 총 3칸을 봄
     for(int i = 0; i < 3; i++) {
-    	nx += dx[dirs[0]];
-    	ny += dy[dirs[0]];
+    	nx = tagger.x + (dx[dirs[0]] * i);
+    	ny = tagger.y + (dy[dirs[0]] * i);
     	
     	if(!isOnRange(nx,ny)) {
     		break;
