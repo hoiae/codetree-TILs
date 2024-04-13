@@ -196,7 +196,7 @@ public class Main {
 			//col은 고정이다. col은 오른쪽에서 부터 시작하므로 N-1 - add한다.
 			int col = N - 1 - add;
 			//row는 N - 1 부터 0 까지 이동하며 일어난다.
-			for(int row = N - 1; row >= 0; row--) {
+			for(int row = 0; row < N; row++) {
 				if(map[row][col] != 0) {
 					//TODO 충돌
 					int groupIndex = map[row][col];
