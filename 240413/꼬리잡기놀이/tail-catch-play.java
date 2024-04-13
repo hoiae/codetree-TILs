@@ -132,7 +132,7 @@ public class Main {
 			//col은 고정이다. add만큼 더한 후 이동한다.
 			int col = 0 + add;
 			//row을 N-1 ~ 0까지
-			for(int row = N - 1; col >= 0; col--) {
+			for(int row = N - 1; row >= 0; row--) {
 				if(map[row][col] != 0) {
 					//TODO 충돌
 //					System.out.println("충돌지점! row="+row+", y="+col);
@@ -196,7 +196,7 @@ public class Main {
 			//col은 고정이다. col은 오른쪽에서 부터 시작하므로 N-1 - add한다.
 			int col = N - 1 - add;
 			//row는 N - 1 부터 0 까지 이동하며 일어난다.
-			for(int row = N - 1; col >= 0; col--) {
+			for(int row = N - 1; row >= 0; row--) {
 				if(map[row][col] != 0) {
 					//TODO 충돌
 					int groupIndex = map[row][col];
@@ -266,27 +266,6 @@ public class Main {
 					break;
 				}
 			}
-//			for (int j = 0; j < route.size(); j++) {
-//				if (route.get(j).x == head.x && route.get(j).y == head.y) {
-//					// 이전값과 이후 값을 비교해서 다른 값이 head이다.
-//					int pre = j - 1;
-//					if (pre == -1) {
-//						pre = route.size() - 1;
-//					}
-//
-//					int next = j + 1;
-//					if (next == route.size()) {
-//						next = 0;
-//					}
-//					// 다른 값이 다음 자리이다.
-//					if (route.get(pre).x == behindHead.x && route.get(pre).y == behindHead.y) {
-//						nextHead = route.get(next);
-//					} else {
-//						nextHead = route.get(pre);
-//					}
-//					break;
-//				}
-//			}
 			
 			//기존map을 0으로 만든다.
 			for(int j = 0; j < group.size(); j++) {
