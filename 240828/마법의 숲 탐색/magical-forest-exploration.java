@@ -103,7 +103,7 @@ public class Main {
 		//숲에 포함되기 위해서 정령의 r이 4이상이어야한다.
 		//이동 가능할때까지 이동시키는 함수
 		moveGol(start);
-		if(fairy.x >= 3) {
+		if(fairy.x >= 4) {
 			//골렘의 위치를 map에 기록함
 			record(fairy);
 			moveFairy(fairy);
