@@ -307,6 +307,7 @@ public class Main {
 		}
 	
 		//1-2.pq에서 우선순위가 가장 높은 거 하나 뺀다.
+		if(pq.isEmpty()) return;
 		Info selected = pq.poll();
 		//2.8방향 중 우선순위가 가장 높은 곳으로 가까워 지는 방향으로 1칸 이동시킨다.
 		//현재 루돌프의 위치에 + 8방향을 한 값중 거리가 가장 작은 쪽으로 한칸 이동
@@ -391,6 +392,16 @@ public class Main {
 		return false;
 	}
 
-
+	private static void printMap() {
+	
+		for(int i = 0; i < n; i++) {
+			for(int j =0 ; j < n; j++) {
+				System.out.print(map[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+		System.out.println("=== === === === ===");
+	}
 
 }
