@@ -118,10 +118,10 @@ public class Main {
 		//map생성
 		map = new int[n][n];
 		//산타의 index는 1부터 시작한다. map에 표기하기 위해. 0은 아무것도 존재하지 않음!!!!
-		outs = new boolean[n + 1];
-		stuns = new int[n + 1];
-		santas = new Point[n + 1];
-		scores = new int[n + 1];
+		outs = new boolean[p + 1];
+		stuns = new int[p + 1];
+		santas = new Point[p + 1];
+		scores = new int[p + 1];
 		//rudolf 초기 좌표
 		st = new StringTokenizer(br.readLine());
 		rudolf = new Point(Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken()) - 1);
