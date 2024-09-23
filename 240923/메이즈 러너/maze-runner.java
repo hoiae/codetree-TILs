@@ -210,10 +210,6 @@ public class Main {
 				}
 			}
 		}
-//		System.out.println("회전 후 runnerMap");
-//		printRunnerMap();
-//		System.out.println("회전 후 points="+ Arrays.toString(points));
-		//runnerMap위치 변경, points위치변경
 		
 	}
 
@@ -249,31 +245,12 @@ public class Main {
 				
 				//출구 표기
 				if(durability[sx+i][sy+j]==-1) {
-					durability[exit.x][exit.y] = 0;
 					exit.x = sx+i;
 					exit.y = sy+j;
+					durability[exit.x][exit.y] = 0;
 				}
 			}
 		}
-//		printDurabiltiy();
-//		System.out.println("회전 후 exit="+exit);
-
-//		System.out.println("before==");
-//		for (int i = 0; i <= len; i++) {
-//			for (int j = 0; j <= len; j++) {
-//				System.out.print(durability[sx + i][sy +j]);			
-//			}
-//			System.out.println();
-//		}
-//		
-//		System.out.println("after==");
-//		for(int i = 0; i <= len; i++) {
-//			for(int j = 0; j <= len; j++) {
-//				System.out.print(after[i][j]);
-//			}
-//			System.out.println();
-//		}
-//		
 		
 	}
 
