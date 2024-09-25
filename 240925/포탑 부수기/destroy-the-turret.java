@@ -117,7 +117,7 @@ public class Main {
 		}
 		
 //		printPower();
-		for(int i = 1; i <=k; i++) {
+		for(int i = 1; i <= k; i++) {
 //			System.out.println("이번 라운드는 "+i+" 입니다.");
 //			//타워가 하나만 살아있으면 종료한다.
 			if(isEnd())
@@ -133,15 +133,17 @@ public class Main {
 			powers[attacker] += n + m;
 			//마지막에 점수를 올려줄때 사용할 것
 			relations = new HashSet<Integer>();
-			relations.add(attacker);
-			relations.add(target);
 			if(!laserAttack(attacker, target)) {
 //				System.out.println("boomAtack!!");
 				//포탄공격 은 laser공격이 실패했을때 일어난다.
 				boomAttack(attacker,target);
 			}
+			
+			relations.add(attacker);
+			relations.add(target);
+			
 			//공격 라운드 표시
-			lastAttacks[attacker] = k;
+			lastAttacks[attacker] = i;
 			
 //			System.out.println("공격 이후");
 //			printPower();
@@ -156,9 +158,15 @@ public class Main {
 			}
 //			System.out.println("정비 후");
 //			printPower();
+//			if(getMaxPower() == 36) {
+//				System.out.println("k="+k);
+//			}
+//			System.out.println(getMaxPower());
+			
 		}
 		
 		//남아있는 포탑중 가장 강한 포탑의 공격력을 출력한다.
+//		System.out.println(Arrays.toString(powers));
 		System.out.println(getMaxPower());
 
 	}
@@ -186,6 +194,9 @@ public class Main {
 		//8방향 노가다...?
 		//1.공격대상에 공격력만큼 피해를 준다.
 		powers[target] -= powers[attacker];
+		if(powers[target] <= 0) {
+			powers[target] = 0;
+		}
 		
 		//2.주의 8방향에 대미지를 준다.
 		//좌상, 상, 우상, 좌, 우, 좌하, 하, 우하
@@ -211,8 +222,7 @@ public class Main {
 				ny = m-1;
 			}
 			//주변 데미지 계산, 공격자는 데미지를 받지않는다.
-			if(map[nx][ny] 
-					== attacker) continue;
+			if(map[nx][ny] == attacker) continue;
 			powers[map[nx][ny]] -= powers[attacker]/2;
 			if(powers[map[nx][ny]] <= 0) powers[map[nx][ny]] = 0;
 			relations.add(map[nx][ny]);
@@ -262,7 +272,7 @@ public class Main {
 				}
 			
 				//구간안에 있고, 방문한적 없고, 0보다 큰경우 이동이 가능하다.
-				if(isOnRange(nx,ny) && !visited[nx][ny] && powers[map[nx][ny]]> 0){
+				if(!visited[nx][ny] && powers[map[nx][ny]] > 0){
 					//target인 경우
 					if(map[nx][ny] == target) {
 						//현재까지 경로에 있던 것들 현재 파워/2만큼 차감
@@ -272,6 +282,7 @@ public class Main {
 						}
 						//target의 파워차감
 						powers[target] -= powers[attacker];
+						if(powers[target] <= 0) powers[target] = 0;
 						
 						//relations에 표기
 						relations.addAll(now.root);
@@ -280,7 +291,8 @@ public class Main {
 					//아닌 경우
 					visited[nx][ny] = true;
 					//이동경로를 추가해준다.
-					Set<Integer> nextRoot = new HashSet<>(now.root);
+					Set<Integer> nextRoot = new HashSet<>();
+					nextRoot.addAll(now.root);
 					nextRoot.add(map[nx][ny]);
 					q.add(new Info(nx,ny,nextRoot));
 				}
@@ -315,14 +327,14 @@ public class Main {
 				
 			}else if(o1[1] != o2[1]) {
 				//최근에 공격한 라운드가 작은 순
-				return -1 * (o2[1] - o1[1]);
+				return o2[1] - o2[1];
 				
-			}else if(o1[2]+o1[3]  != o2[2]+o2[3]) {
+			}else if( (o1[2]+o1[3])  != (o2[2]+o2[3])) {
 				//행, 열의 합이 작은 순
-				return -1 * ((o2[2]+o2[3]) - (o1[2]+o1[3]));  
+				return  (o1[2]+o1[3]) - (o2[2]+o2[3]);  
 			}
 			//열값이 가장작은순
-			return -1 * (o2[3] - o1[3]);	
+			return o1[3] - o2[3];	
 		});
 		
 		//우선순위 판단에 필요한 정보를  pq에 넣는다. 
@@ -334,7 +346,6 @@ public class Main {
 		
 		int target = pq.poll()[4];
 		//파워에 가점 n + m부여
-		
 		
 		return target;
 	}
