@@ -158,10 +158,7 @@ public class Main {
 			}
 //			System.out.println("정비 후");
 //			printPower();
-//			if(getMaxPower() == 36) {
-//				System.out.println("k="+k);
-//			}
-//			System.out.println(getMaxPower());
+
 			
 		}
 		
@@ -327,7 +324,7 @@ public class Main {
 				
 			}else if(o1[1] != o2[1]) {
 				//최근에 공격한 라운드가 작은 순
-				return o2[1] - o2[1];
+				return o1[1] - o2[1];
 				
 			}else if( (o1[2]+o1[3])  != (o2[2]+o2[3])) {
 				//행, 열의 합이 작은 순
@@ -341,6 +338,7 @@ public class Main {
 		//파워, 마지막에 공격한 시점, 위치의 행, 위치의 열, 타워의 index;
 		for(int i = 1; i <= n * m; i++) {
 			if(powers[i] <= 0) continue;
+//			System.out.println("powers[i]="+powers[i]+", lastAttacks= "+ lastAttacks[i]+", points.x= "+ points[i].x+", points.y"+ points[i].y+", index="+i);
 			pq.add(new int[] {powers[i], lastAttacks[i], points[i].x, points[i].y,i});
 		}
 		
