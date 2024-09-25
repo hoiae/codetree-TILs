@@ -102,7 +102,6 @@ public class Main {
 		points = new Point[ (n * m) + 1];
 		map = new int[n][m];
 		
-		
 		int towerIndex = 0;//타워 인덱스는 1부터 시작한다.
 		for(int i = 0;  i <  n; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -120,7 +119,7 @@ public class Main {
 //		printPower();
 		for(int i = 1; i <=k; i++) {
 //			System.out.println("이번 라운드는 "+i+" 입니다.");
-			//타워가 하나만 살아있으면 종료한다.
+//			//타워가 하나만 살아있으면 종료한다.
 			if(isEnd())
 				break;
 			
@@ -130,7 +129,8 @@ public class Main {
 //			System.out.println("powers=" + Arrays.toString(powers));
 			int target = selectTarget();
 //			System.out.println("target =" + target);
-			
+			//파워에 가점 n + m부여
+			powers[attacker] += n + m;
 			//마지막에 점수를 올려줄때 사용할 것
 			relations = new HashSet<Integer>();
 			relations.add(attacker);
@@ -140,8 +140,12 @@ public class Main {
 				//포탄공격 은 laser공격이 실패했을때 일어난다.
 				boomAttack(attacker,target);
 			}
+			//공격 라운드 표시
+			lastAttacks[attacker] = k;
+			
 //			System.out.println("공격 이후");
 //			printPower();
+			
 			
 			//이번라운드에서 아무런 영향이 없는 타워의 파워을 +1해준다.
 			for(int j = 1; j <= n * m; j++) {
@@ -198,9 +202,19 @@ public class Main {
 			if(ny == m) {
 				ny = 0;
 			}
+			
+			if(nx == -1) {
+				nx = n-1;
+			}
+			
+			if(ny == -1) {
+				ny = m-1;
+			}
 			//주변 데미지 계산, 공격자는 데미지를 받지않는다.
-			if(map[nx][ny] == attacker) continue;
+			if(map[nx][ny] 
+					== attacker) continue;
 			powers[map[nx][ny]] -= powers[attacker]/2;
+			if(powers[map[nx][ny]] <= 0) powers[map[nx][ny]] = 0;
 			relations.add(map[nx][ny]);
 		}
 
@@ -231,6 +245,22 @@ public class Main {
 			for(int i = 0; i < 4; i++) {
 				int nx = now.x + dx[i];
 				int ny = now.y + dy[i];
+				
+				if(nx == n) {
+					nx = 0;
+				}
+				if(ny == m) {
+					ny = 0;
+				}
+				
+				if(nx == -1) {
+					nx = n-1;
+				}
+				
+				if(ny == -1) {
+					ny = m-1;
+				}
+			
 				//구간안에 있고, 방문한적 없고, 0보다 큰경우 이동이 가능하다.
 				if(isOnRange(nx,ny) && !visited[nx][ny] && powers[map[nx][ny]]> 0){
 					//target인 경우
@@ -238,6 +268,7 @@ public class Main {
 						//현재까지 경로에 있던 것들 현재 파워/2만큼 차감
 						for(int index : now.root) {
 							powers[index] -= (powers[attacker]/2);
+							if(powers[index] <= 0) powers[index] = 0;
 						}
 						//target의 파워차감
 						powers[target] -= powers[attacker];
@@ -344,10 +375,7 @@ public class Main {
 			if(powers[i] <= 0) continue;
 			pq.add(new int[] {powers[i], lastAttacks[i], points[i].x, points[i].y,i});
 		}
-		
 		int attacker = pq.poll()[4];
-		//파워에 가점 n + m부여
-		powers[attacker] += n + m;
 		return attacker;
 	}
 	private static boolean isEnd() {
